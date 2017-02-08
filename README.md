@@ -1,2 +1,3 @@
-# mountebank-in-action
-Source code for the upcoming Mountebank in Action book
+# Mountebank in Action
+
+These examples are in support of the upcoming Manning book.
