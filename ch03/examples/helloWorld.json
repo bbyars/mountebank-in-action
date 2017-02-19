@@ -1,0 +1,16 @@
+{
+  "protocol": "http",
+  "port": 3000,
+  "stubs": [{
+    "responses": [{
+      "is": {
+        "statusCode": 200,
+        "headers": {
+          "Content-Type": "text/plain",
+          "Content-Length": "13"
+        },
+        "body": "Hello, world!"
+      }
+    }]
+  }]
+}
