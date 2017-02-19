@@ -6,8 +6,7 @@
       "is": {
         "statusCode": 200,
         "headers": {
-          "Content-Type": "text/plain",
-          "Content-Length": "13"
+          "Content-Type": "text/plain"
         },
         "body": "Hello, world!"
       }
