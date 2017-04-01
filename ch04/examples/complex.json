@@ -3,19 +3,29 @@
   "port": 3000,
   "stubs": [{
     "predicates": [{
-      "and": [
-        { "equals": { "path": "/identities" } },
+      "or": [
+        { "equals": { "path": "/identities/123" } },
         {
-          "or": [
-            { "not": { "contains": { "query": { "q": "Frank" } } } },
-            { "exists": { "query": { "page": false } } }
+          "and": [
+            { "equals": { "path": "/identities" } },
+            {
+              "and": [
+                { "contains": { "query": { "q": "Frank" } } },
+                { "contains": { "query": { "q": "Williams" } } },
+                { "not": { "exists": { "query": { "page": true } } } }
+              ]
+            }
           ]
         }
       ]
     }],
     "responses": [{
       "is": {
-        "body": { "identities": [] }
+        "body": { "identities": [{
+          "name": "Frank Williams",
+          "career": "Doctor",
+          "location": "Georgia"
+        }] }
       }
     }]
   }]

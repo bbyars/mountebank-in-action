@@ -118,10 +118,16 @@ Example: Combining ands, ors, and nots
 mb --configfile examples/complex.json &
 
 # Should respond with test body
-curl -i http://localhost:3000/identities?q=Frank
+curl -i http://localhost:3000/identities?q=Frank+Williams
+
+# Should respond with test body
+curl -i http://localhost:3000/identities?q=Frank&q=Williams
+
+# Should respond with test body
+curl -i http://localhost:3000/identities/123
 
 # Should respond with empty default body
-curl -i http://localhost:3000/identities?q=Frank&page=2
+curl -i http://localhost:3000/identities?q=Frank+Williams&page=2
 
 mb stop
 ````
