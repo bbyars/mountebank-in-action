@@ -1,4 +1,4 @@
-== Welcome, friend
+# Welcome, friend
 
 [Mountebank](http://mbtest.org) is one of the most capable service virtualization
 platforms in the world, and it's entirely free. You can learn more about
