@@ -21,3 +21,20 @@ curl -i http://localhost:8080/inventory/2599b7f4
 
 mb stop
 ````
+
+Example: Using a path predicate generator
+
+````
+mb --configfile examples/path-predicate.json &
+
+# Should respond with 54
+curl -i http://localhost:3000/inventory/2599b7f4
+
+# Should respond with 100
+curl -i http://localhost:3000/inventory/e1977c9e
+
+# Shows the changed state of the imposter
+curl -i http://localhost:2525/imposters/3000
+
+mb stop
+````
