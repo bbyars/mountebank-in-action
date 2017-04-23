@@ -38,3 +38,52 @@ curl -i http://localhost:2525/imposters/3000
 
 mb stop
 ````
+
+Example: Using a proxyAlways proxy mode
+
+````
+mb --configfile examples/proxyAlways.json &
+
+# Should respond with 54
+curl -i http://localhost:3000/inventory/2599b7f4
+
+# Different product, should respond with 100
+curl -i http://localhost:3000/inventory/e1977c9e
+
+# Should respond with 21
+curl -i http://localhost:3000/inventory/2599b7f4
+
+# Should respond with 0
+curl -i http://localhost:3000/inventory/2599b7f4
+
+# Shows the changed state of the imposter
+curl -i http://localhost:2525/imposters/3000
+
+mb stop
+````
+
+Example: Simple replay
+
+````
+mb --configfile examples/proxyAlways.json &
+
+# Should respond with 54
+curl -i http://localhost:3000/inventory/2599b7f4
+
+# Different product, should respond with 100
+curl -i http://localhost:3000/inventory/e1977c9e
+
+# Should respond with 21
+curl -i http://localhost:3000/inventory/2599b7f4
+
+# Should respond with 0
+curl -i http://localhost:3000/inventory/2599b7f4
+
+# Restart mountebank without the proxies
+mb replay
+
+# Shows the changed state of the imposter
+curl -i http://localhost:2525/imposters/3000
+
+mb stop
+````
