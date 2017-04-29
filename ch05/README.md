@@ -87,3 +87,16 @@ curl -i http://localhost:2525/imposters/3000
 
 mb stop
 ````
+
+Example: Bridging HTTPS to HTTP
+
+````
+mb --configfile examples/https-to-http.json &
+
+# The HTTPS imposter uses a self-signed certificate
+# Calling the HTTP imposter doesn't require us to use
+# the -k flag for curl, which disables certificate validation
+curl -i http://localhost:3000/
+
+mb stop
+````
