@@ -6,7 +6,7 @@
   "main": "./src/mountebank.js",
   "scripts": {
     "start": "node src/index.js",
-    "test": "node_modules/mocha/bin/_mocha test/**/*.js"
+    "test": "node_modules/grunt-cli/bin/grunt"
   },
   "dependencies": {
     "ejs": "~2.5.1",
