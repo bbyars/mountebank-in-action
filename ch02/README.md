@@ -1,4 +1,4 @@
-# Chapter 2
+# Chapter 2: Your first test using mountebank
 
 ## Listing 2.1: Creating a products imposter
 

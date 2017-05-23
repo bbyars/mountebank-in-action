@@ -1,4 +1,4 @@
-# Chapter 3
+# Chapter 3: Testing using canned responses
 
 Most of the examples assume mountebank is running on port 2525. You can start it in a
 separate terminal by running

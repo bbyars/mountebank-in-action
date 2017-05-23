@@ -1,11 +1,13 @@
-# Mountebank in Action
+# Chapter 4: Using predicates to give different responses
 
-These examples are in support of the upcoming Manning book.
+These examples assume you have access to `curl`, which means you're running Mac, Linux,
+or cygwin on Windows. For the Powershell examples, see the example README in
+[chapter 2](https://github.com/bbyars/mountebank-in-action/tree/master/ch02).
 
-Example: Different answers for different questions
+## Listing 4.1: The basic Abagnale imposter - giving different answers to different questions
 
 ````
-mb --configfile examples/abagnale.json &
+mb restart --configfile examples/abagnale.json &
 
 # Should respond Miami to Rio
 curl -i -d"Which route are you flying?" http://localhost:3000/
@@ -14,27 +16,41 @@ curl -i -d"Which route are you flying?" http://localhost:3000/
 curl -i -d"Where did you get your degree?" http://localhost:3000/
 
 # Should respond I'll have to get back to you on that one
-curl -i -d"Where did you get your degree?" http://localhost:3000/
+curl -i -d"What's your favorite color?" http://localhost:3000/
 
 mb stop
 ````
 
-Example: Using a regular expression to match past and present tense questions
+## Figure 4.4: Using a regular expression to match past and present tense questions
 
 ````
-~/src/mountebank/bin/mb --configfile examples/matchesBody.json &
+mb restart --configfile examples/matchesBody.json &
 
 # Both should respond Miami to Rio
 curl -i -d"Which route did you fly?" http://localhost:3000/
 curl -i -d"Which route are you flying?" http://localhost:3000/
 
-~/src/mountebank/bin/mb stop
+mb stop
 ````
 
-Example: Matching a numeric id on the path
+## Listing 4.2: Using a regular expression to replace other predicate types
 
 ````
-mb --configfile examples/matchesPath.json &
+mb restart --configfile examples/matchesSuspiciousQuestion.json &
+
+# Should all response "Catch me if you can!"
+curl -i -d"Can I see your driver's license?" http://localhost:3000/
+curl -i -d"Can I see your state driver's license?" http://localhost:3000/
+curl -i -d"Can I see your current driver's license please?" http://localhost:3000/
+
+mb stop
+````
+````
+
+## Listing 4.3: Matching a numeric id on the path
+
+````
+mb restart --configfile examples/matchesPath.json &
 
 # Should respond with JSON
 curl -i http://localhost:3000/identities/123
@@ -45,10 +61,10 @@ curl -i http://localhost:3000/identities/frank-williams
 mb stop
 ````
 
-Example: Matching a query parameter
+Listing 4.4: Matching a query parameter
 
 ````
-mb --configfile examples/matchesQuery.json &
+mb restart --configfile examples/matchesQuery.json &
 
 # Should respond with JSON
 curl -i http://localhost:3000/identities?q=Frank
@@ -66,6 +82,20 @@ curl -i http://localhost:3000/identities?q=Frank
 
 # Should respond with JSON
 curl -i http://localhost:3000/identities
+
+mb stop
+````
+
+Listing 4.5: Matching arrays
+
+````
+mb --configfile examples/arrays.json &
+
+# Should match equals predicate
+curl -i http://localhost:3000/identities?q=Frank&q=Georgia&q=Doctor
+
+# Should match deepEquals predicate
+curl -i http://localhost:3000/identities?q=Frank&q=Georgia
 
 mb stop
 ````
@@ -112,7 +142,7 @@ curl -i -d'Frank Abagnale Jr.' http://localhost:3000
 mb stop
 ````
 
-Example: Combining ands, ors, and nots
+Listing 4.6: Combining ands, ors, and nots
 
 ````
 mb --configfile examples/complex.json &
@@ -132,7 +162,7 @@ curl -i http://localhost:3000/identities?q=Frank+Williams&page=2
 mb stop
 ````
 
-Example: Case-sensitive predicate
+Listing 4.7: Case-sensitive predicate
 
 ````
 mb --configfile examples/caseSensitive.json &
@@ -149,19 +179,7 @@ curl -i http://localhost:3000/identities?Q=Frank
 mb stop
 ````
 
-Example: Using the except parameter
-
-````
-mb --configfile examples/except.json &
-
-# Both reqeusts should send test response
-curl -i -d"Can I see your driver's license?" http://localhost:3000/
-curl -i -d"Can I see your?" http://localhost:3000/
-
-mb stop
-````
-
-Example: JSON predicate
+Listing 4.8: JSON predicate
 
 ````
 mb --configfile examples/jsonPredicate.json &
@@ -175,7 +193,7 @@ curl -i -d'{ "name": "Frank Adams", "career": "Teacher", "location": "Utah"}' ht
 mb stop
 ````
 
-Example: JSONPath predicate
+Listing 4.9: JSONPath predicate
 
 ````
 mb --configfile examples/jsonpath.json &
@@ -211,10 +229,11 @@ curl -i -X PUT http://localhost:3000/identities --data '{
     }
   ]
 }'
+
 mb stop
 ````
 
-Example: Simple XPath predicate
+Listing 4.10: Simple XPath predicate
 
 ````
 mb --configfile examples/xpath.json &
@@ -244,7 +263,7 @@ curl -i -X PUT http://localhost:3000/identities --data '
 mb stop
 ````
 
-Example: XPath with namespaces
+Listing 4.11: XPath with namespaces
 
 ````
 mb --configfile examples/xpath-ns.json &
