@@ -1,0 +1,19 @@
+{
+  "protocol": "http",
+  "port": 3000,
+  "stubs": [
+    {
+      "predicates": [{
+        "inject": "<%- stringify(filename, 'roadie-predicate.js') %>"
+      }],
+      "responses": [{
+        "is": { "body": "Humidity levels dangerous, action required" }
+      }]
+    },
+    {
+      "responses": [{
+        "is": { "body": "Humidity levels OK for the next 10 days" }
+      }]
+    }
+  ]
+}

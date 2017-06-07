@@ -217,7 +217,7 @@ curl -i http://localhost:2525/imposters/3000
 mb stop
 ````
 
-## xxx: Using a partial proxy
+## Listing 5.15: Using a partial proxy
 ````
 mb --configfile examples/partialProxy.json &
 
@@ -238,7 +238,7 @@ curl -i http://localhost:3000/something-else
 mb stop
 ````
 
-## Listing 5.15: Bridging HTTPS to HTTP
+## Listing 5.16: Bridging HTTPS to HTTP
 
 ````
 mb --configfile examples/https-to-http.json &
