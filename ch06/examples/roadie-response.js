@@ -50,5 +50,15 @@ function (request) {
       return humidity >= 70;
     });
 
-  return hasDayTenDegreesOutOfRange || hasThreeDaysOutOfRange(humidities);
+  if (hasDayTenDegreesOutOfRange || hasThreeDaysOutOfRange(humidities)) {
+    return {
+      statusCode: 400,
+      body: 'Humidity levels dangerous, action required'
+    };
+  }
+  else {
+    return {
+      body: 'Humidity levels OK for the next 10 days'
+    };
+  }
 }
