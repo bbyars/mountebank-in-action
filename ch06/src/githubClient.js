@@ -1,5 +1,7 @@
 'use strict';
 
+// Adapted from https://developer.github.com/v3/guides/basics-of-authentication/
+
 var path = require('path'),
   app = require('express')(),
   clientId = process.env.GH_BASIC_CLIENT_ID,
