@@ -4,7 +4,7 @@ function (request, state, logger, callback) {
       method: 'POST',
       hostname: 'localhost',
       port: 3000,
-      path: '/callback?code=TEST_CODE'
+      path: '/callback?code=TEST-CODE'
     },
     httpRequest = http.request(options, function (response) {
       var body = '';
@@ -13,7 +13,10 @@ function (request, state, logger, callback) {
         body += chunk;
       });
       response.on('end', function () {
-        // what is the response to this GET?
+        logger.warn('The callback body is: ' + body);
+        callback({ body: body });
       });
     });
+
+  httpRequest.end();
 }

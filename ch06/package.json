@@ -5,7 +5,7 @@
   "description": "github client to show using OAuth",
   "scripts": {
     "start": "node src/githubClient.js",
-    "test": "node_modules/grunt-cli/bin/grunt"
+    "test": "node_modules/mocha/bin/_mocha test/**/*.js"
   },
   "dependencies": {
     "ejs": "~2.5.1",
@@ -16,10 +16,6 @@
     "request-promise-any": "^1.0.3"
   },
   "devDependencies": {
-    "grunt": "^1.0.1",
-    "grunt-cli": "^1.2.0",
-    "grunt-mocha-test": "~0.13.2",
-    "grunt-mountebank": "1.0.5",
     "mocha": "~3.4.1"
   }
 }
