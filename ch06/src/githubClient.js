@@ -18,8 +18,9 @@ app.get('/', function (request, response) {
   response.render('index', { clientId: clientId, baseURL: authBaseURL });
 });
 
-require('request-promise-any/node_modules/any-promise/register/q');
-var httpRequest = require('request-promise-any');
+//require('request-promise-any/node_modules/any-promise/register/q');
+//var httpRequest = require('request-promise-any');
+var httpRequest = require('request-promise');
 
 app.get('/callback', function (request, response) {
   var url = require('url'),
@@ -46,12 +47,11 @@ app.get('/callback', function (request, response) {
       resolveWithFullResponse: true
     });
   }).then(function (githubResponse) {
-    if (githubResponse.statusCode === 204) {
+    //if (githubResponse.statusCode === 204) {
       response.send('You have already starred the mountebank repo');
-    }
-    else {
-      response.send('You have NOT starred the mountebank repo. Time to fix that!');
-    }
+    //}
+  }).catch(function () {
+    response.send('You have NOT starred the mountebank repo. Time to fix that!');
   }).done();
 });
 

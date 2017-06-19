@@ -1,8 +1,8 @@
 'use strict';
 
-require('any-promise/register/q');
+//require('any-promise/register/q');
 
-var request = require('request-promise-any'),
+var request = require('request-promise'),
   assert = require('assert'),
   authBaseURL = process.env.MBSTAR_BASE_AUTH_URL,
   clientId = process.env.GH_BASIC_CLIENT_ID,

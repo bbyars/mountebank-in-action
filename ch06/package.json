@@ -13,6 +13,7 @@
     "express": "~4.15.3",
     "q": "~1.5.0",
     "request": "^2.79.0",
+    "request-promise": "^4.2.1",
     "request-promise-any": "^1.0.3"
   },
   "devDependencies": {

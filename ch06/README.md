@@ -106,3 +106,39 @@ curl -i http://localhost:3000/ --data 'Day,Description,High,Low,Precip,Wind,Humi
 mb stop
 ````
 
+## Listing 6.x: Virtualizing Github's API to test OAuth flow
+
+````
+#!/usr/bin/env bash
+
+# Point app to mountebank instead of github
+export MBSTAR_BASE_AUTH_URL=http://localhost:3001
+export MBSTAR_BASE_API_URL=http://localhost:3001
+
+# Configure secrets
+# Normally you should never check in the secret to source control
+# The id and secret below are no longer active, so you should register your
+# own github app if you want to test integrated to the actual github API
+export GH_BASIC_CLIENT_ID=79553235751bfcb87654
+export GH_BASIC_CLIENT_SECRET=a1284814800451b97f7288d9c9cd762bf176eb87
+
+# Start the web app
+npm start &
+# Captures the PID of the last backgrounded process
+WEB_PID=$!
+
+# Start mountebank
+mb restart --allowInjection --localOnly --configfile examples/auth.json &
+
+# Wait for mb to fully initialize by waiting for it to create the pidfile
+while [ ! -f mb.pid ]; do
+  sleep 1
+done
+
+# Run the test against a virtualized github API
+npm test
+
+# Stop the web app and mountebank
+kill $WEB_PID
+mb stop
+````

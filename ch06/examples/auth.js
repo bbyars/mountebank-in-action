@@ -1,7 +1,7 @@
 function (request, state, logger, callback) {
   var http = require('http'),
     options = {
-      method: 'POST',
+      method: 'GET',
       hostname: 'localhost',
       port: 3000,
       path: '/callback?code=TEST-CODE'
@@ -13,7 +13,6 @@ function (request, state, logger, callback) {
         body += chunk;
       });
       response.on('end', function () {
-        logger.warn('The callback body is: ' + body);
         callback({ body: body });
       });
     });
