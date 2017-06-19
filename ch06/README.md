@@ -106,6 +106,29 @@ curl -i http://localhost:3000/ --data 'Day,Description,High,Low,Precip,Wind,Humi
 mb stop
 ````
 
+## Listing 6.x: Using state to detect dangerous humidity across requests
+
+````
+# No predicates in imposter, all logic performed in response
+mb --allowInjection --localOnly --configfile examples/roadie-state.json &
+
+# Should respond with "Humidity levels OK"
+# But note that Jun-11 is over 60%
+curl -i http://localhost:3000/ --data 'Day,Description,High,Low,Precip,Wind,Humidity
+9-Jun,Partly Cloudy,88,68,0%,SSE 11mph,56%
+10-Jun,Partly Cloudy,89,70,10%,S 15 mph,57%
+11-Jun,Sunny,90,73,10%,S 16 mph,61%'
+
+# By 13-Jun, we've reached the 3 consecutive day marker
+# Should respond with "Humidity levels dangerous, action required"
+curl -i http://localhost:3000/ --data 'Day,Description,High,Low,Precip,Wind,Humidity
+12-Jun,Partly Cloudy,91,74,10%,S 13 mph,63%
+13-Jun,Partly Cloudy,90,74,10%,S 17 mph,61%
+14-Jun,Partly Cloudy,90,74,10%,S 15 mph,59%'
+
+mb stop
+````
+
 ## Listing 6.x: Virtualizing Github's API to test OAuth flow
 
 ````
