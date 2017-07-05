@@ -1,5 +1,5 @@
 function (request) {
-  function csvToObject (csvData) {
+  function csvToObjects (csvData) {
     var lines = csvData.split('\n'),
       headers = lines[0].split(','),
       result = [];
@@ -42,13 +42,13 @@ function (request) {
     return result;
   }
 
-  var rows = csvToObject(request.body),
+  var rows = csvToObjects(request.body),
     humidities = rows.map(function (row) {
       return parseInt(row.Humidity.replace('%', ''));
     }),
-    hasDayTenDegreesOutOfRange = humidities.some(function (humidity) {
+    hasDayTenPercentOutOfRange = humidities.some(function (humidity) {
       return humidity >= 70;
     });
 
-  return hasDayTenDegreesOutOfRange || hasThreeDaysOutOfRange(humidities);
+  return hasDayTenPercentOutOfRange || hasThreeDaysOutOfRange(humidities);
 }

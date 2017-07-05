@@ -1,5 +1,5 @@
 function (request, state) {
-  function csvToObject (csvData) {
+  function csvToObjects (csvData) {
     var lines = csvData.split('\n'),
       headers = lines[0].split(','),
       result = [];
@@ -48,7 +48,7 @@ function (request, state) {
     state.humidities = [];
   }
 
-  var rows = csvToObject(request.body);
+  var rows = csvToObjects(request.body);
 
   rows.forEach(function (row) {
     if (state.days.indexOf(row.Day) < 0) {
@@ -57,11 +57,11 @@ function (request, state) {
     }
   });
 
-  var hasDayTenDegreesOutOfRange = state.humidities.some(function (humidity) {
+  var hasDayTenPercentOutOfRange = state.humidities.some(function (humidity) {
     return humidity >= 70;
   });
 
-  if (hasDayTenDegreesOutOfRange || hasThreeDaysOutOfRange(state.humidities)) {
+  if (hasDayTenPercentOutOfRange || hasThreeDaysOutOfRange(state.humidities)) {
     return {
       statusCode: 400,
       body: 'Humidity levels dangerous, action required'

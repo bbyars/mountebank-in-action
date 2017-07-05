@@ -7,7 +7,7 @@ In order to maintain readable JavaScript functions, the example JSON config file
 the `stringify` function mountebank adds to EJS to grab an external JavaScript file and
 JSON-escape it.
 
-## Listing 6.x: Testing the Roadie service predicate
+## Listing 6.3-6.5: Testing the Roadie service predicate
 
 ````
 mb --allowInjection --localOnly --configfile examples/roadie-predicate.json &
@@ -56,7 +56,7 @@ curl -i http://localhost:3000/ --data 'Day,Description,High,Low,Precip,Wind,Humi
 mb stop
 ````
 
-## Listing 6.x: Testing the Roadie service response
+## Listing 6.7: Testing the Roadie service response
 
 ````
 # No predicates in imposter, all logic performed in response
@@ -106,7 +106,7 @@ curl -i http://localhost:3000/ --data 'Day,Description,High,Low,Precip,Wind,Humi
 mb stop
 ````
 
-## Listing 6.x: Using state to detect dangerous humidity across requests
+## Listing 6.8: Using state to detect dangerous humidity across requests
 
 ````
 # No predicates in imposter, all logic performed in response
@@ -129,7 +129,7 @@ curl -i http://localhost:3000/ --data 'Day,Description,High,Low,Precip,Wind,Humi
 mb stop
 ````
 
-## Listing 6.x: Virtualizing Github's API to test OAuth flow
+## Listing 6.11-6.14: Virtualizing Github's API to test OAuth flow
 
 ````
 #!/usr/bin/env bash
