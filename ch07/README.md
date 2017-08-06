@@ -137,14 +137,41 @@ mb stop
 ## Listing 7.x: Copying a value using xpath
 
 ````
-mb --configfile examples/xpath.json &
+mb --configfile examples/copy-xpath.json &
 
 # Returns 5ea4d2b5 in the response body
-curl -i -X POST http://localhost:3000/ --data'
-<preferences>
-  
-</preferences>
-'
+curl -i -X POST http://localhost:3000/ --data '
+<accounts xmlns="https://www.example.com/accounts">
+  <account id="d0a7b1b8" />
+  <account id="5ea4d2b5" />
+  <account id="774d4feb" />
+</accounts>'
+
+mb stop
+````
+
+## Listing 7.x: Virtualizing a CORS preflight request
+
+````
+mb --configfile examples/cors.json &
+
+# Should return CORS response headers
+curl -i -X OPTIONS -H'Origin: http://www.origin.com' http://localhost:3000/
+
+mb stop
+````
+
+## Listing 7.x: Looking up a value from a CSV file
+
+````
+mb --configfile examples/lookup.json &
+
+# Should return 400 with a duplicate entry error message
+curl -i -X POST http://localhost:3000/accounts --data '{
+  "name": "Kip Brady",
+  "occupation": "actor",
+  "age": 37
+}'
 
 mb stop
 ````
