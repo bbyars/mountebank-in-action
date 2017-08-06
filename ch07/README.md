@@ -85,3 +85,66 @@ time curl -i http://localhost:3000/
 
 mb stop
 ````
+
+## Listing 7.x: Adding a `repeat` behavior
+
+````
+mb --configfile examples/repeat.json &
+
+# Returns 9999
+curl -i http://localhost:3000/
+
+# Returns 9999
+curl -i http://localhost:3000/
+
+# Returns 0
+curl -i http://localhost:3000/
+
+# Returns 9999
+curl -i http://localhost:3000/
+
+# Returns 9999
+curl -i http://localhost:3000/
+
+# Returns 0
+curl -i http://localhost:3000/
+
+mb stop
+````
+
+## Listing 7.x: Copying a value from the URL to the response body
+
+````
+mb --configfile examples/copy-regex.json &
+
+# Returns 8731 in the response body
+curl -i http://localhost:3000/accounts/8731
+
+mb stop
+````
+
+## Listing 7.x: Copying a value from the URL to the response body using a grouped match
+
+````
+mb --configfile examples/copy-regex-group.json &
+
+# Returns 5ea4d2b5 in the response body
+curl -i http://localhost:3000/accounts/5ea4d2b5/profile
+
+mb stop
+````
+
+## Listing 7.x: Copying a value using xpath
+
+````
+mb --configfile examples/xpath.json &
+
+# Returns 5ea4d2b5 in the response body
+curl -i -X POST http://localhost:3000/ --data'
+<preferences>
+  
+</preferences>
+'
+
+mb stop
+````
