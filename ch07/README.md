@@ -5,7 +5,7 @@ with the `--allowInjection` flag. To keep it secure, we'll also test with the `-
 
 Since it's not the focus of the chapter, we'll ignore predicates for the examples.
 
-## Listing 7.x: Using an `inject` response to add a dynamic timestamp
+## Listing 7.2: Using an `inject` response to add a dynamic timestamp
 
 ````
 mb --allowInjection --localOnly --configfile examples/inject-response-timestamp.json &
@@ -16,7 +16,7 @@ curl -i http://localhost:3000/
 mb stop
 ````
 
-## Listing 7.x: Combining an `is` response with a `decorate` behavior
+## Listing 7.3: Combining an `is` response with a `decorate` behavior
 
 ````
 mb --allowInjection --localOnly --configfile examples/decorate-timestamp.json &
@@ -27,7 +27,7 @@ curl -i http://localhost:3000/
 mb stop
 ````
 
-## Listing 7.x: Adding a `decorate` behavior to recorded responses
+## Listing 7.5: Adding a `decorate` behavior to recorded responses
 
 ````
 mb --allowInjection --localOnly --configfile examples/proxy-decorate.json &
@@ -50,7 +50,7 @@ rm rate-limit.txt
 mb stop
 ````
 
-## Listing 7.x: Adding middleware through the `shellTransform` behavior
+## Listing 7.6 - 7.8: Adding middleware through the `shellTransform` behavior
 
 ````
 # installs the necessary ruby gems
@@ -75,7 +75,7 @@ rm rate-limit.txt
 mb stop
 ````
 
-## Listing 7.x: Adding latency with a `wait` behavior
+## Listing 7.9: Adding latency with a `wait` behavior
 
 ````
 mb --configfile examples/wait.json &
@@ -86,7 +86,7 @@ time curl -i http://localhost:3000/
 mb stop
 ````
 
-## Listing 7.x: Adding a `repeat` behavior
+## Listing 7.10: Adding a `repeat` behavior
 
 ````
 mb --configfile examples/repeat.json &
@@ -112,7 +112,7 @@ curl -i http://localhost:3000/
 mb stop
 ````
 
-## Listing 7.x: Copying a value from the URL to the response body
+## Listing 7.12: Copying a value from the URL to the response body
 
 ````
 mb --configfile examples/copy-regex.json &
@@ -123,7 +123,7 @@ curl -i http://localhost:3000/accounts/8731
 mb stop
 ````
 
-## Listing 7.x: Copying a value from the URL to the response body using a grouped match
+## Listing 7.13: Copying a value from the URL to the response body using a grouped match
 
 ````
 mb --configfile examples/copy-regex-group.json &
@@ -134,7 +134,7 @@ curl -i http://localhost:3000/accounts/5ea4d2b5/profile
 mb stop
 ````
 
-## Listing 7.x: Copying a value using xpath
+## Listing 7.14: Copying a value using xpath
 
 ````
 mb --configfile examples/copy-xpath.json &
@@ -150,7 +150,7 @@ curl -i -X POST http://localhost:3000/ --data '
 mb stop
 ````
 
-## Listing 7.x: Virtualizing a CORS preflight request
+## Listing 7.15: Virtualizing a CORS preflight request
 
 ````
 mb --configfile examples/cors.json &
@@ -161,7 +161,7 @@ curl -i -X OPTIONS -H'Origin: http://www.origin.com' http://localhost:3000/
 mb stop
 ````
 
-## Listing 7.x: Looking up a value from a CSV file
+## Listing 7.17 - 7.18: Looking up a value from a CSV file
 
 ````
 mb --configfile examples/lookup.json &
