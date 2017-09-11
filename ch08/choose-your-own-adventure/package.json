@@ -1,0 +1,10 @@
+{
+  "name": "choose-your-own-adventure",
+  "version": "0.1.0",
+  "author": "Brandon Byars <brandon.byars@gmail.com>",
+  "description": "A simple choose your own adventure game",
+  "main": "./src/app.js",
+  "scripts": {
+    "start": "node src/app.js",
+  }
+}
