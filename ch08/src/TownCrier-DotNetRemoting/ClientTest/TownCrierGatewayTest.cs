@@ -1,5 +1,7 @@
 ﻿using System;
 using System.IO;
+using System.Linq;
+using System.Reflection;
 using System.Runtime.Remoting.Messaging;
 using System.Text;
 using NUnit.Framework;
@@ -43,15 +45,18 @@ namespace ClientTest
             var stubResult = new AnnouncementLog("TEST");
             CreateImposter(3000, "Announce", stubResult);
             var gateway = new TownCrierGateway(3000);
-            var topic = "TEST";
-            for (var i = 0; i < 1500; i += 1)
-            {
-                topic += "TEST";
-            }
 
-            var result = gateway.AnnounceToServer("ignore", topic);
+            var result = gateway.AnnounceToServer(RandomString(1000000), RandomString(1000000));
 
             Assert.That(result, Is.EqualTo($"Call Success!\n{stubResult}"));
+        }
+
+        private static readonly Random random = new Random();
+        public static string RandomString(int length)
+        {
+            const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+            return new string(Enumerable.Repeat(chars, length)
+                .Select(s => s[random.Next(s.Length)]).ToArray());
         }
 
         private void CreateImposter(int port, string methodName, AnnouncementLog result)
@@ -79,9 +84,9 @@ namespace ClientTest
             var messageRequest = new MethodCall(new[] {
                 new Header(MessageHeader.Uri, "tcp://localhost:3000/TownCrier"),
                 new Header(MessageHeader.MethodName, "Announce"),
-                new Header(MessageHeader.MethodSignature, new[] { typeof(AnnouncementTemplate) }),
+                new Header(MessageHeader.MethodSignature, SignatureFor("Announce")),
                 new Header(MessageHeader.TypeName, typeof(Crier).AssemblyQualifiedName),
-                new Header(MessageHeader.Args, new[] { obj })
+                new Header(MessageHeader.Args, ArgsFor("Announce"))
             });
             var responseMessage = new MethodResponse(new[]
             {
@@ -103,5 +108,21 @@ namespace ClientTest
                 return Convert.ToBase64String(stream.ToArray());
             }
         }
+
+        private Type[] SignatureFor(string methodName)
+        {
+            return typeof(Crier)
+                .GetMethod(methodName)
+                .GetParameters()
+                .Select(p => p.ParameterType)
+                .ToArray();
+        }
+
+        private Object[] ArgsFor(string methodName)
+        {
+            var length = SignatureFor(methodName).Length;
+            return Enumerable.Repeat(new Object(), length).ToArray();
+        }
     }
 }
+
