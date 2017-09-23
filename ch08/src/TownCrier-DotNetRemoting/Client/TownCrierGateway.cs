@@ -5,30 +5,19 @@ namespace Client
 {
     public class TownCrierGateway
     {
-        private readonly int port;
+        private readonly string url;
 
         public TownCrierGateway(int port)
         {
-            this.port = port;
+            url = $"tcp://localhost:{port}/TownCrierService";
         }
 
         public string AnnounceToServer(string greeting, string topic)
         {
-            var url = $"tcp://localhost:{port}/TownCrierService";
-
             var template = new AnnouncementTemplate(greeting, topic);
             var crier = (Crier)Activator.GetObject(typeof(Crier), url);
-            var response = crier.Announce(template).ToString();
+            var response = crier.Announce(template);
             return $"Call Success!\n{response}";
         }
-
-//        public string AnnounceToServer(string topic)
-//        {
-//            var url = $"tcp://localhost:{port}/TownCrierService";
-//
-//            var crier = (Crier)Activator.GetObject(typeof(Crier), url);
-//            var response = crier.Announce2(topic);
-//            return $"Call Success!\n{response}";
-//        }
     }
 }

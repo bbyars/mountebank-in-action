@@ -1,11 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Net.Sockets;
-using System.Runtime.Remoting.Channels.Tcp;
 using System.Runtime.Remoting.Messaging;
-using System.Runtime.Serialization.Formatters;
-using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
 using NUnit.Framework;
 using Client;
@@ -30,28 +25,48 @@ namespace ClientTest
             mb.DeleteAllImposters();
         }
 
-//        [Test]
-        public void SerTest()
-        {
-            var stubResult = new AnnouncementLog("Test Message");
-            var serializeAnnounceCall = SerializeAnnounceCall(stubResult);
-            Assert.That(serializeAnnounceCall, Is.EqualTo("Lk5FVAEAAAAAAD0BAAAEAAEBJQAAAHRjcDovL2xvY2FsaG9zdDozMDAwL1Rvd25DcmllclNlcnZpY2UGAAEBGAAAAGFwcGxpY2F0aW9uL29jdGV0LXN0cmVhbQAAAAEAAAD/////AQAAAAAAAAAVFAAAABIIQW5ub3VuY2USUVRvd25Dcmllci5DcmllciwgVG93bkNyaWVyLCBWZXJzaW9uPTEuMC4wLjAsIEN1bHR1cmU9bmV1dHJhbCwgUHVibGljS2V5VG9rZW49bnVsbBABAAAAAQAAAAkCAAAADAMAAABAVG93bkNyaWVyLCBWZXJzaW9uPTEuMC4wLjAsIEN1bHR1cmU9bmV1dHJhbCwgUHVibGljS2V5VG9rZW49bnVsbAUCAAAAHlRvd25Dcmllci5Bbm5vdW5jZW1lbnRUZW1wbGF0ZQIAAAAZPEdyZWV0aW5nPmtfX0JhY2tpbmdGaWVsZBY8VG9waWM+a19fQmFja2luZ0ZpZWxkAQEDAAAABgQAAAAFSGVsbG8GBQAAAAVUb3BpYws="));
-        }
         [Test]
         public void ClientShouldAddSuccessMessage()
         {
-            var imposter = mb.CreateTcpImposter(3000, "TownCrierService", TcpMode.Binary);
-            var predicateFields = new TcpPredicateFields { Data = ToBase64("Announce") };
-            var stubResult = new AnnouncementLog("Test Message");
-
-            imposter.AddStub()
-                .On(new ContainsPredicate<TcpPredicateFields>(predicateFields))
-                .ReturnsData(SerializeAnnounceCall(stubResult));
-            mb.Submit(imposter);
-
+            var stubResult = new AnnouncementLog("TEST");
+            CreateImposter(3000, "Announce", stubResult);
             var gateway = new TownCrierGateway(3000);
+
             var result = gateway.AnnounceToServer("ignore", "ignore");
-            Assert.That(result, Does.Contain($"Call Success!\n{stubResult}"));
+
+            Assert.That(result, Is.EqualTo($"Call Success!\n{stubResult}"));
+        }
+
+        [Test]
+        public void LargeMessagesShouldBeOK()
+        {
+            var stubResult = new AnnouncementLog("TEST");
+            CreateImposter(3000, "Announce", stubResult);
+            var gateway = new TownCrierGateway(3000);
+            var topic = "TEST";
+            for (var i = 0; i < 1500; i += 1)
+            {
+                topic += "TEST";
+            }
+
+            var result = gateway.AnnounceToServer("ignore", topic);
+
+            Assert.That(result, Is.EqualTo($"Call Success!\n{stubResult}"));
+        }
+
+        private void CreateImposter(int port, string methodName, AnnouncementLog result)
+        {
+            var imposter = mb.CreateTcpImposter(port, "", TcpMode.Binary);
+            imposter.AddStub()
+                .On(ContainsMethodName(methodName))
+                .ReturnsData(Serialize(result));
+            mb.Submit(imposter);
+        }
+
+        private ContainsPredicate<TcpPredicateFields> ContainsMethodName(string methodName)
+        {
+            var predicateFields = new TcpPredicateFields { Data = ToBase64(methodName) };
+            return new ContainsPredicate<TcpPredicateFields>(predicateFields);
         }
 
         private string ToBase64(string plaintext)
@@ -59,7 +74,7 @@ namespace ClientTest
             return Convert.ToBase64String(Encoding.UTF8.GetBytes(plaintext));
         }
 
-        public string SerializeAnnounceCall(Object obj)
+        public string Serialize(Object obj)
         {
             var messageRequest = new MethodCall(new[] {
                 new Header(MessageHeader.Uri, "tcp://localhost:3000/TownCrier"),
