@@ -3,7 +3,7 @@
 The examples below assume you have netcat (`nc`) installed on your machine.
 Netcat is like telnet, but easier to script.
 
-## Listing 8.x: Virtualizing a TCP updateInventory call
+## Listing 8.1-8.2: Virtualizing a TCP updateInventory call
 
 ````
 mb --configfile examples/updateInventory.json &
@@ -14,7 +14,7 @@ echo "updateInventory\n5131\n-5" | nc localhost 3000
 mb stop
 ````
 
-## Listing 8.x: Using a TCP proxy
+## Listing 8.3: Using a TCP proxy
 
 ````
 mb --configfile examples/textProxy.json &
@@ -36,7 +36,7 @@ echo "updateInventory\n5131\n-5" | nc localhost 3333
 mb stop
 ````
 
-## Listing 8.x: Using a TCP proxy with predicate generators
+## Listing 8.4: Using a TCP proxy with predicate generators
 
 ````
 mb --configfile examples/proxyWithPredicateGenerators.json &
@@ -59,7 +59,7 @@ curl http://localhost:2525/imposters/3000
 mb stop
 ````
 
-## Listing 8.x: Using a TCP proxy with predicate generators with an XML payload
+## Listing 8.5: Using a TCP proxy with predicate generators with an XML payload
 
 ````
 mb --configfile examples/proxyWithPredicateGeneratorsXML.json &
@@ -105,7 +105,7 @@ curl http://localhost:2525/imposters/3000
 mb stop
 ````
 
-## Listing 8.x - 8.x: Converting to Base64 and back
+## Listing 8.6 - 8.7: Converting to Base64 and back
 
 ````
 # Encodes in base64
@@ -115,7 +115,7 @@ node -e 'console.log(new Buffer("Hello, world!").toString("base64"));'
 node -e 'console.log(new Buffer("SGVsbG8sIHdvcmxkIQ==", "base64").toString("utf8"));'
 ````
 
-## Listing 8.x: Configuring mountebank for a binary response
+## Listing 8.8: Configuring mountebank for a binary response
 
 ````
 mb --configfile examples/binaryResponse.json &
@@ -126,7 +126,7 @@ echo "Testing" | nc localhost 3000
 mb stop
 ````
 
-## Listing 8.x: Using a Base64-encoded contains predicate
+## Listing 8.9: Using a Base64-encoded contains predicate
 
 ````
 mb --configfile examples/binaryContains.json &
@@ -138,4 +138,10 @@ node -e 'console.log(new Buffer([0x10, 0x49, 0x10]).toString("base64"));' | base
 node -e 'console.log(new Buffer([0x10, 0x49, 0x11]).toString("base64"));' | base64 --decode | nc localhost 3000
 
 mb stop
+````
+
+## Listing 8.10: Proxying to a .NET remoting server
+
+````
+
 ````
