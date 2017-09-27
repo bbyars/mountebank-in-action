@@ -159,7 +159,7 @@ file and selecting 'Run unit tests'
 This works on Windows. All three comamnds should be run in separate consoles.
 
 ````
-src/TownCrier-DotNetRemoting/artifacts/Server.exe 3333
+src\\TownCrier-DotNetRemoting\\artifacts\\Server.exe 3333
 ````
 
 ````
@@ -167,5 +167,7 @@ mb --configfile examples/proxyWithEndOfRequestResolver.json --allowInjection
 ````
 
 ````
-src/TownCrier-DotNetRemoting/artifacts/Client.exe 3000
+REM Client.exe assumes you're running in the right directory
+cd src\\TownCrier-DotNetRemoting\\artifacts
+Client.exe 3000
 ````
