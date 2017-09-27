@@ -140,8 +140,32 @@ node -e 'console.log(new Buffer([0x10, 0x49, 0x11]).toString("base64"));' | base
 mb stop
 ````
 
-## Listing 8.10: Proxying to a .NET remoting server
+## Virtualizing a .NET Remoting server
+
+Running this example currently requires Visual Studio on a Windows machine. The source code for both the client
+and the server is in src/TownCrier-DotNetRemoting. I've checked in the built
+executables in src/TownCrier-DotNetRemoting/artifacts.
+
+The tests use code in src/RemotingProtocolParser, which is a copy of the amazing work
+[Xu Huang](https://github.com/wsky/RemotingProtocolParser) has done.
+
+The example test we walk through in the book is src/TownCrier-DotNetRemoting/ClientTest/TownCrierGatewayTest.cs.
+To run it, you'll first have to start mountebank in a separate console. I run NUnit by right-clicking inside the
+file and selecting 'Run unit tests'
+
+
+## Listing 8.14-8.16: Proxying to a .NET remoting server
+
+This works on Windows. All three comamnds should be run in separate consoles.
 
 ````
+src/TownCrier-DotNetRemoting/artifacts/Server.exe 3333
+````
 
+````
+mb --configfile examples/proxyWithEndOfRequestResolver.json --allowInjection
+````
+
+````
+src/TownCrier-DotNetRemoting/artifacts/Client.exe 3000
 ````
