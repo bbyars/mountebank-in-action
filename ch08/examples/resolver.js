@@ -1,6 +1,6 @@
 function (requestData, logger) {
   var path = require('path'),
-      parserPath = path.join(process.cwd(), '/../src/RemotingProtocolParser/nodejs/lib/remotingProtocolParser'),
+      parserPath = path.join(process.cwd(), 'src/RemotingProtocolParser/nodejs/lib/remotingProtocolParser'),
       r = require(parserPath).tcpReader(requestData);
 
   // The reader is stateful and tracks where we are with an offset variable,

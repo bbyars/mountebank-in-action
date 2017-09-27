@@ -39,22 +39,10 @@ namespace ClientTest
             Assert.That(result, Is.EqualTo($"Call Success!\n{stubResult}"));
         }
 
-        [Test]
-        public void LargeMessagesShouldBeOK()
-        {
-            var stubResult = new AnnouncementLog("TEST");
-            CreateImposter(3000, "__END__", stubResult);
-            var gateway = new TownCrierGateway(3000);
-
-            var result = gateway.AnnounceToServer(RandomString(100000), RandomString(100000) + "__END__");
-
-            Assert.That(result, Is.EqualTo($"Call Success!\n{stubResult}"));
-        }
-
-        [Test]
+        //[Test]
         public void SpitOutLargeRequest()
         {
-            File.WriteAllText("C:\\mountebank-in-action\\ch08\\src\\TownCrier-DotNetRemoting\\response.txt", RandomString(100000));
+            File.WriteAllText("response.txt", RandomString(100000));
         }
 
         private static readonly Random random = new Random();
