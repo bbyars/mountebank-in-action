@@ -5,6 +5,7 @@ var express = require('express');
 var app = express();
 
 app.get('/products', function (req, res) {
+  console.log('[Product service] /products');
   res.sendFile(__dirname + '/products.json');
 });
 

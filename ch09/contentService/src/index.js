@@ -22,12 +22,13 @@ app.get('/content', function (req, res) {
     res.status(400).send('Must send ids query parameter');
   }
   else {
+    console.log('[Content service] /content?ids=' + req.query.ids);
     var ids = req.query.ids.split(','),
       content = ids.map(function (id) {
         return contentDatabase[id];
       });
 
-    res.json(content);
+    res.json({ content: content });
   }
 });
 
