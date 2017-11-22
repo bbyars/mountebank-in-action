@@ -13,6 +13,8 @@ First we need to install all dependencies:
 Then to run them all at once:
 
 ````
+export PRODUCT_SERVICE_URL='http://localhost:3000'
+export CONTENT_SERVICE_URL='http://localhost:4000'
 (cd productService && npm start &)
 (cd contentService && npm start &)
 (cd webFacadeService && npm start &)

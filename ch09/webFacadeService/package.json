@@ -21,6 +21,7 @@
     "grunt-cli": "^1.2.0",
     "grunt-mocha-test": "~0.13.2",
     "grunt-mountebank": "1.0.5",
-    "mocha": "~3.4.1"
+    "mocha": "~3.4.1",
+    "sinon": "^4.1.2"
   }
 }

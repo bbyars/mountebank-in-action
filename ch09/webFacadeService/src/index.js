@@ -1,48 +1,20 @@
 'use strict';
 
-require('any-promise/register/q');
-
 var express = require('express'),
-  request = require('request-promise-any'),
-  Q = require('q'),
-  productsGateway = require('./models/productsGateway').create('http://localhost:3000'),
-  contentGateway = require('./models/contentGateway').create('http://localhost:4000');
-
-function getProductsWithContent () {
-  var products;
-
-  return productsGateway.getProducts().then(function (response) {
-    products = response.products;
-
-    var productIds = products.map(function (product) {
-      return product.id;
-    });
-    return contentGateway.getContent(productIds);
-  }).then(function (response) {
-    var contentEntries = response.content;
-
-    products.forEach(function (product) {
-      var contentEntry = contentEntries.find(function (entry) {
-        return entry.id === product.id;
-      });
-      product.copy = contentEntry.copy;
-      product.image = contentEntry.image;
-    });
-
-    return Q(products);
-  });
-}
+  productServiceURL = process.env['PRODUCT_SERVICE_URL'],
+  contentServiceURL = process.env['CONTENT_SERVICE_URL'],
+  productsGateway = require('./models/productsGateway').create(productServiceURL),
+  contentGateway = require('./models/contentGateway').create(contentServiceURL),
+  productCatalog = require('./models/productCatalog').create(productsGateway, contentGateway);
 
 var app = express();
 
-app.get('/products', function (req, res) {
-  console.log('[Web Facade service] /products');
-  getProductsWithContent().then(function (results) {
-    res.send({ products: results });
+app.get('/products', function (request, response) {
+  productCatalog.retrieve().then(function (results) {
+    response.json({ products: results });
   }, function (err) {
-    console.log(err);
-    res.statusCode = 500;
-    res.send(err);
+    response.statusCode = 500;
+    response.send(err);
   });
 });
 

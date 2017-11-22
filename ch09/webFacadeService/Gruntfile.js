@@ -6,11 +6,17 @@ module.exports = function (grunt) {
 
   grunt.initConfig({
     mochaTest: {
-      service: {
+      unit: {
         options: {
           reporter: 'spec'
         },
-        src: ['test/**/*.js']
+        src: ['unitTest/**/*.js']
+      },
+      functional: {
+        options: {
+          reporter: 'spec'
+        },
+        src: ['serviceTest/**/*.js']
       }
     },
     mb: {
@@ -19,7 +25,10 @@ module.exports = function (grunt) {
     }
   });
 
-  grunt.registerTask('test', 'Run the unit tests',
+  grunt.registerTask('test:unit', 'Run the unit tests', ['mochaTest:unit']);
+
+  grunt.registerTask('test:service', 'Run the service tests',
     ['mb:restart', 'try', 'mochaTest:service', 'finally', 'mb:stop', 'checkForErrors']);
-  grunt.registerTask('default', ['test']);
+
+  grunt.registerTask('default', ['test:unit']);
 };

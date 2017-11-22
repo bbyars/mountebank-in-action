@@ -2,14 +2,13 @@
 
 require('any-promise/register/q');
 
-var request = require('request-promise-any'),
-  Q = require('q');
+var request = require('request-promise-any');
 
 function create (url) {
   function getContent(productIds) {
     var query = 'ids=' + productIds.join(',');
     return request(url + '/content?' + query).then(function (body) {
-      return Q(JSON.parse(body));
+      return JSON.parse(body);
     });
   }
 

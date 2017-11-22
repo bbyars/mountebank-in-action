@@ -2,15 +2,14 @@
 
 require('any-promise/register/q');
 
-var request = require('request-promise-any'),
-  Q = require('q');
+var request = require('request-promise-any');
 
 function create (url) {
   function getProducts() {
     var products;
 
     return request(url + '/products').then(function (body) {
-      return Q(JSON.parse(body));
+      return JSON.parse(body);
     });
   }
 
