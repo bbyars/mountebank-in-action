@@ -12,7 +12,7 @@ module.exports = function (grunt) {
         },
         src: ['unitTest/**/*.js']
       },
-      functional: {
+      service: {
         options: {
           reporter: 'spec'
         },
