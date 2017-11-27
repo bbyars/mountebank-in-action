@@ -1,8 +1,5 @@
 'use strict';
 
-var imposter = require('./imposter'),
-  productPort = 3000;
-
 function addSuffixToObjects (suffixes, fields) {
   return suffixes.map(function (suffix) {
     var result = {};
@@ -12,6 +9,9 @@ function addSuffixToObjects (suffixes, fields) {
     return result;
   });
 }
+
+var imposter = require('./imposter'),
+  productPort = 3000;
 
 function createProductImposter (suffixes) {
   var products = addSuffixToObjects(suffixes, ['id', 'name', 'description']);

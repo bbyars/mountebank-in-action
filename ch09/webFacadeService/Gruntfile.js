@@ -17,6 +17,12 @@ module.exports = function (grunt) {
           reporter: 'spec'
         },
         src: ['serviceTest/**/*.js']
+      },
+      contract: {
+        options: {
+          reporter: 'spec'
+        },
+        src: ['contractTest/**/*.js']
       }
     },
     mb: {
@@ -27,8 +33,12 @@ module.exports = function (grunt) {
 
   grunt.registerTask('test:unit', 'Run the unit tests', ['mochaTest:unit']);
 
+  // Expects Web Facade to be running ('npm start')
   grunt.registerTask('test:service', 'Run the service tests',
     ['mb:restart', 'try', 'mochaTest:service', 'finally', 'mb:stop', 'checkForErrors']);
+
+  // Expects Product service to be running
+  grunt.registerTask('test:contract', 'Run the service tests', ['mochaTest:contract']);
 
   grunt.registerTask('default', ['test:unit']);
 };
