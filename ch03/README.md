@@ -4,7 +4,7 @@ Most of the examples assume mountebank is running on port 2525. You can start it
 separate terminal by running
 
 ````
-mb
+mb &
 ````
 
 The examples also assume you have access to `curl`, which means you're running Mac, Linux,
@@ -86,7 +86,8 @@ curl -X DELETE http://localhost:2525/imposters
 ## Listing 3.10: Saving the inventory service in config files
 
 The config file is in the configfiles directory, with EJS references to the configfiles/ssl
-directory.
+directory. You'll need to kill mountebank (either by typing Ctrl-C in the terminal running it
+or by typing `mb stop` in a separate terminal that's in the same directory.
 
 ````
 # Restart mountebank using the config file
@@ -102,7 +103,7 @@ done
 ## Listing 3.12: Saving multiple imposters in config files
 
 The config file is in the configfiles directory, with EJS references to the configfiles/ssl
-directory.
+directory. Kill mountebank before running:
 
 ````
 # Restart mountebank using the config file
