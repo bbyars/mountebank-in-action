@@ -5,14 +5,14 @@
 First we need to install all dependencies:
 
 ````
-(cd webFacadeService && npm install)
+(cd adoptionService && npm install)
 ````
 
 Then we can run it. Without any environment variables, the service connects to the
 real RescueOrgs service:
 
 ````
-(cd webFacadeService && npm start &)
+(cd adoptionService && npm start &)
 ````
 
 I use a blunt instrument to kill it:
