@@ -45,5 +45,37 @@ curl http://localhost:5000/animals/10677691
 curl http://localhost:5000/animals/10837552
 curl http://localhost:5000/animals/11618347
 
+mb save --removeProxies
 mb stop
 ````
+
+The test data will be stored in mb.json.
+
+## Listing 10.x: Capturing the latency of the downstream system
+
+This example is nearly identical to the previous one, with the addition of the
+`addWaitBehavior` flag. Once again run the Adoption service with the proxy URL:
+
+````
+(cd adoptionService && RESCUE_URL=http://localhost:3000/ npm start)
+````
+
+Then, in a separate terminal window:
+
+````
+mb restart --configfile examples/proxyWithLatency.json &
+
+# Capture the two searches
+curl http://localhost:5000/nearbyAnimals?postalCode=75228&maxDistance=20
+curl http://localhost:5000/nearbyAnimals?postalCode=75228&maxDistance=50
+
+# Capture the detailed results. Change the ids to ones returned in the last search
+curl http://localhost:5000/animals/10677691
+curl http://localhost:5000/animals/10837552
+curl http://localhost:5000/animals/11618347
+
+mb save --removeProxies
+mb stop
+````
+
+The test data will be stored in mb.json, and will contain the actual latencies.
