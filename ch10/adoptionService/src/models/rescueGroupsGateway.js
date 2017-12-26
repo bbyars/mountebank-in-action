@@ -7,6 +7,7 @@ var request = require('request-json'),
 var PUBLIC_API_KEY = "ThavaS7e";
 
 function create (url) {
+  console.log('RescueGroups gateway initiated with url ' + url);
   var client = request.createClient(url);
 
   function getNearbyAnimals(postalCode, maxDistance) {
