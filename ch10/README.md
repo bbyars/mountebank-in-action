@@ -79,3 +79,20 @@ mb stop
 ````
 
 The test data will be stored in mb.json, and will contain the actual latencies.
+
+## Listing 10.x: Assigning random latency swings
+
+Our imposter always returns a body of "Hello, world!" with random latency, but once in
+about every 10 calls, it takes an order of magnitude longer to respond.
+
+````
+mb restart --allowInjection --configfile examples/respondWithRandomLatency.json &
+
+# Call 20 times. This might be painful
+for i in {1..20}
+do
+  time curl http://localhost:3000/
+done
+
+mb stop
+````
