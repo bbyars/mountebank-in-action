@@ -96,3 +96,25 @@ done
 
 mb stop
 ````
+
+## Listing 10.x: Running the performance test
+
+Once again run the Adoption service connected to our imposter, now no longer a proxy:
+
+````
+(cd adoptionService && RESCUE_URL=http://localhost:3000/ npm start)
+````
+
+Run the imposter using the saved test data:
+
+````
+mb restart --configfile mb.json --loglevel warn
+````
+
+Now we can run Gatling, pointing to our simulation file
+
+````
+$GATLING_HOME/bin/gatling.sh -sf gatling/simulations -s adoptionservice.SearchForPetSimulation -rf gatling/reports
+````
+
+
