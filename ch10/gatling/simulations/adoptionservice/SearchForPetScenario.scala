@@ -27,6 +27,6 @@ class SearchForPetSimulation extends Simulation {
       .get("/animals/11618347"))
 
   setUp(
-    searchScenario.inject(rampUsers(10000) over (10 seconds))
+    searchScenario.inject(rampUsers(3125) over (10 seconds))
   ).protocols(httpProtocol)
 }

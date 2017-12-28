@@ -22,7 +22,7 @@ curl http://localhost:5000/nearbyAnimals?postalCode=75228&maxDistance=50
 curl http://localhost:5000/animals/10677691
 ````
 
-## Listing 10.x: Capturing basic responses from RescueGroups.org
+## Listing 10.1: Capturing basic responses from RescueGroups.org
 
 We have to add an environment variable to tell the Adoption service to use the URL of our proxy,
 which we'll run on port 3000. Start it like this:
@@ -51,7 +51,7 @@ mb stop
 
 The test data will be stored in mb.json.
 
-## Listing 10.x: Capturing the latency of the downstream system
+## Listing 10.2: Capturing the latency of the downstream system
 
 This example is nearly identical to the previous one, with the addition of the
 `addWaitBehavior` flag. Once again run the Adoption service with the proxy URL:
@@ -80,7 +80,7 @@ mb stop
 
 The test data will be stored in mb.json, and will contain the actual latencies.
 
-## Listing 10.x: Assigning random latency swings
+## Listing 10.3: Assigning random latency swings
 
 Our imposter always returns a body of "Hello, world!" with random latency, but once in
 about every 10 calls, it takes an order of magnitude longer to respond.
@@ -97,7 +97,7 @@ done
 mb stop
 ````
 
-## Listing 10.x: Running the performance test
+## Listing 10.5: Running the performance test
 
 Once again run the Adoption service connected to our imposter, now no longer a proxy:
 

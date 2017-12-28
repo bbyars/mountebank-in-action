@@ -46,19 +46,24 @@ function create (url) {
       };
 
     client.post(PATH, requestBody, function (err, res, body) {
-      var animals = [];
+      if (err) {
+        deferred.reject(err);
+      }
+      else {
+        var animals = [];
 
-      Object.keys(body.data).forEach(function (key) {
-        var animal = body.data[key];
-        animals.push({
-          id: animal.animalID,
-          coords: animal.animalLocationCoordinates,
-          species: animal.animalSpecies,
-          thumbnail: animal.animalThumbnailUrl
+        Object.keys(body.data).forEach(function (key) {
+          var animal = body.data[key];
+          animals.push({
+            id: animal.animalID,
+            coords: animal.animalLocationCoordinates,
+            species: animal.animalSpecies,
+            thumbnail: animal.animalThumbnailUrl
+          });
         });
-      });
 
-      deferred.resolve({ animals: animals });
+        deferred.resolve({animals: animals});
+      }
     });
 
     return deferred.promise;
@@ -88,18 +93,23 @@ function create (url) {
       };
 
     client.post(PATH, requestBody, function (err, res, body) {
-      var animal = body.data[id];
-      deferred.resolve({
-        id: id,
-        birthdate: animal.animalBirthdate,
-        age: animal.animalAgeString,
-        postalCode: animal.animalLocation,
-        coords: animal.animalLocationCoordinates,
-        distance: animal.animalLocationDistance,
-        city: animal.animalLocationCitystate,
-        species: animal.animalSpecies,
-        thumbnail: animal.animalThumbnailUrl
-      });
+      if (err) {
+        deferred.reject(err);
+      }
+      else {
+        var animal = body.data[id];
+        deferred.resolve({
+          id: id,
+          birthdate: animal.animalBirthdate,
+          age: animal.animalAgeString,
+          postalCode: animal.animalLocation,
+          coords: animal.animalLocationCoordinates,
+          distance: animal.animalLocationDistance,
+          city: animal.animalLocationCitystate,
+          species: animal.animalSpecies,
+          thumbnail: animal.animalThumbnailUrl
+        });
+      }
     });
 
     return deferred.promise;
