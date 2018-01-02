@@ -26,7 +26,7 @@ done
 curl -d@examples/products.json http://localhost:2525/imposters
 
 # Call the imposter
-curl -i http://localhost:3000/
+curl -i http://localhost:3000/products
 
 # Stop mountebank
 mb stop
@@ -84,10 +84,10 @@ done
 curl -d@examples/productsWithPredicates.json http://localhost:2525/imposters
 
 # Call the imposter with page=2, should get an empty product list
-curl -i http://localhost:3000/?page=2
+curl -i http://localhost:3000/products?page=2
 
 # Call the imposter, should get a full body
-curl -i http://localhost:3000/
+curl -i http://localhost:3000/products
 
 # Stop mountebank
 mb stop
