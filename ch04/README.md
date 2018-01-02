@@ -38,7 +38,7 @@ mb stop
 ````
 mb restart --configfile examples/matchesSuspiciousQuestion.json &
 
-# Should all response "Catch me if you can!"
+# Should all respond "Catch me if you can!"
 curl -i -d"Can I see your driver's license?" http://localhost:3000/
 curl -i -d"Can I see your state driver's license?" http://localhost:3000/
 curl -i -d"Can I see your current driver's license please?" http://localhost:3000/
@@ -74,7 +74,7 @@ mb stop
 ## Example: Matching only if nothing is on the querystring
 
 ````
-mb --configfile examples/emptyQuery.json &
+mb restart --configfile examples/emptyQuery.json &
 
 # Should respond with default empty response
 curl -i http://localhost:3000/identities?q=Frank
@@ -88,7 +88,7 @@ mb stop
 ## Listing 4.5: Matching arrays
 
 ````
-mb --configfile examples/arrays.json &
+mb restart --configfile examples/arrays.json &
 
 # Should match equals predicate
 curl -i "http://localhost:3000/identities?q=Frank&q=Georgia&q=Doctor"
@@ -102,7 +102,7 @@ mb stop
 ## Example: Using `exists` to test the querystring
 
 ````
-mb --configfile examples/exists.json &
+mb restart --configfile examples/exists.json &
 
 # Should respond with test body
 curl -i "http://localhost:3000/identities?q=Frank"
@@ -116,7 +116,7 @@ mb stop
 ## Example: Using `exists` to test for a missing Authorization header
 
 ````
-mb --configfile examples/authorization.json &
+mb restart --configfile examples/authorization.json &
 
 # The first request should return a default 200
 curl -i -H'Authorization: letmein' http://localhost:3000/
@@ -130,7 +130,7 @@ mb stop
 ## Example: Using the and predicate
 
 ````
-mb --configfile examples/andPredicate.json &
+mb restart --configfile examples/andPredicate.json &
 
 # Should respond with test body
 curl -i -d'Frank Abagnale' http://localhost:3000
@@ -144,7 +144,7 @@ mb stop
 ## Listing 4.6: Combining ands, ors, and nots
 
 ````
-mb --configfile examples/complex.json &
+mb restart --configfile examples/complex.json &
 
 # Should respond with test body
 curl -i "http://localhost:3000/identities?q=Frank+Williams"
@@ -164,7 +164,7 @@ mb stop
 ## Listing 4.7: Case-sensitive predicate
 
 ````
-mb --configfile examples/caseSensitive.json &
+mb restart --configfile examples/caseSensitive.json &
 
 # Should respond with test body
 curl -i "http://localhost:3000/identities?q=Frank"
@@ -181,7 +181,7 @@ mb stop
 ## Listing 4.8: JSON predicate
 
 ````
-mb --configfile examples/jsonPredicate.json &
+mb restart --configfile examples/jsonPredicate.json &
 
 # Should send test response (career = Doctor)
 curl -i -d'{ "name": "Frank Williams", "career": "Doctor", "location": "Georgia"}' http://localhost:3000/identities
@@ -195,7 +195,7 @@ mb stop
 ## Listing 4.9: JSONPath predicate
 
 ````
-mb --configfile examples/jsonpath.json &
+mb restart --configfile examples/jsonpath.json &
 
 # Should send 200 status code (last element does not have career = Teacher)
 curl -i -X PUT http://localhost:3000/identities --data '{
@@ -235,7 +235,7 @@ mb stop
 ## Listing 4.10: Simple XPath predicate
 
 ````
-mb --configfile examples/xpath.json &
+mb restart --configfile examples/xpath.json &
 
 # Should send 200 status code (no element has career = Teacher and location = Utah)
 curl -i -X PUT http://localhost:3000/identities --data '
@@ -265,7 +265,7 @@ mb stop
 ## Listing 4.11: XPath with namespaces
 
 ````
-mb --configfile examples/xpath-ns.json &
+mb restart --configfile examples/xpath-ns.json &
 
 # Should send 200 status code (sending n:name as attribute)
 curl -i -X PUT http://localhost:3000/identities --data '
