@@ -4,7 +4,7 @@
   "stubs": [
     {
       "predicates": [{
-        "matches": {
+        "equals": {
           "query": { "q": "Frank" }
         }
       }],

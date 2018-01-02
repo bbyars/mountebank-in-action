@@ -10,12 +10,10 @@
         "equals": { "path": "/identities" }
       },
       {
-        "equals": {
-          "body": "Teacher"
-        },
         "jsonpath": {
           "selector": "$.identities[(@.length-1)].career"
-        }
+        },
+        "equals": { "body": "Teacher" }
       }
     ],
     "responses": [{

@@ -9,11 +9,11 @@
         "or": [
           {
             "xpath": {
-              "selector": "//i:identity/n:name",
               "ns": {
                 "i": "https://www.abagnale-spec.com/identity",
                 "n": "https://www.abagnale-spec.com/name"
-              }
+              },
+              "selector": "//i:identity/n:name"
             },
             "exists": { "body": true }
           },

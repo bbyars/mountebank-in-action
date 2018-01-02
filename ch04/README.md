@@ -15,7 +15,7 @@ curl -i -d"Which route are you flying?" http://localhost:3000/
 # Should respond Harvard Medical School
 curl -i -d"Where did you get your degree?" http://localhost:3000/
 
-# Should respond I'll have to get back to you on that one
+# Should respond I'll have to get back to you
 curl -i -d"What's your favorite color?" http://localhost:3000/
 
 mb stop
@@ -45,7 +45,6 @@ curl -i -d"Can I see your current driver's license please?" http://localhost:300
 
 mb stop
 ````
-````
 
 ## Listing 4.3: Matching a numeric id on the path
 
@@ -61,7 +60,7 @@ curl -i http://localhost:3000/identities/frank-williams
 mb stop
 ````
 
-Listing 4.4: Matching a query parameter
+## Listing 4.4: Matching a query parameter
 
 ````
 mb restart --configfile examples/matchesQuery.json &
@@ -72,7 +71,7 @@ curl -i http://localhost:3000/identities?q=Frank
 mb stop
 ````
 
-Example: Matching only if nothing is on the querystring
+## Example: Matching only if nothing is on the querystring
 
 ````
 mb --configfile examples/emptyQuery.json &
@@ -86,35 +85,35 @@ curl -i http://localhost:3000/identities
 mb stop
 ````
 
-Listing 4.5: Matching arrays
+## Listing 4.5: Matching arrays
 
 ````
 mb --configfile examples/arrays.json &
 
 # Should match equals predicate
-curl -i http://localhost:3000/identities?q=Frank&q=Georgia&q=Doctor
+curl -i "http://localhost:3000/identities?q=Frank&q=Georgia&q=Doctor"
 
 # Should match deepEquals predicate
-curl -i http://localhost:3000/identities?q=Frank&q=Georgia
+curl -i "http://localhost:3000/identities?q=Frank&q=Georgia"
 
 mb stop
 ````
 
-Example: Using `exists` to test the querystring
+## Example: Using `exists` to test the querystring
 
 ````
 mb --configfile examples/exists.json &
 
 # Should respond with test body
-curl -i http://localhost:3000/identities?q=Frank
+curl -i "http://localhost:3000/identities?q=Frank"
 
 # Should respond with default empty body because the page parameter is passed
-curl -i http://localhost:3000/identities?q=Frank&page=2
+curl -i "http://localhost:3000/identities?q=Frank&page=2"
 
 mb stop
 ````
 
-Example: Using `exists` to test for a missing Authorization header
+## Example: Using `exists` to test for a missing Authorization header
 
 ````
 mb --configfile examples/authorization.json &
@@ -128,7 +127,7 @@ curl -i http://localhost:3000/
 mb stop
 ````
 
-Example: Using the and predicate
+## Example: Using the and predicate
 
 ````
 mb --configfile examples/andPredicate.json &
@@ -142,13 +141,13 @@ curl -i -d'Frank Abagnale Jr.' http://localhost:3000
 mb stop
 ````
 
-Listing 4.6: Combining ands, ors, and nots
+## Listing 4.6: Combining ands, ors, and nots
 
 ````
 mb --configfile examples/complex.json &
 
 # Should respond with test body
-curl -i http://localhost:3000/identities?q=Frank+Williams
+curl -i "http://localhost:3000/identities?q=Frank+Williams"
 
 # Should respond with test body
 curl -i http://localhost:3000/identities?q=Frank&q=Williams
@@ -157,29 +156,29 @@ curl -i http://localhost:3000/identities?q=Frank&q=Williams
 curl -i http://localhost:3000/identities/123
 
 # Should respond with empty default body
-curl -i http://localhost:3000/identities?q=Frank+Williams&page=2
+curl -i "http://localhost:3000/identities?q=Frank+Williams&page=2"
 
 mb stop
 ````
 
-Listing 4.7: Case-sensitive predicate
+## Listing 4.7: Case-sensitive predicate
 
 ````
 mb --configfile examples/caseSensitive.json &
 
 # Should respond with test body
-curl -i http://localhost:3000/identities?q=Frank
+curl -i "http://localhost:3000/identities?q=Frank"
 
 # Should respond with default body
-curl -i http://localhost:3000/identities?q=frank
+curl -i "http://localhost:3000/identities?q=frank"
 
 # Should respond with default body
-curl -i http://localhost:3000/identities?Q=Frank
+curl -i "http://localhost:3000/identities?Q=Frank"
 
 mb stop
 ````
 
-Listing 4.8: JSON predicate
+## Listing 4.8: JSON predicate
 
 ````
 mb --configfile examples/jsonPredicate.json &
@@ -193,7 +192,7 @@ curl -i -d'{ "name": "Frank Adams", "career": "Teacher", "location": "Utah"}' ht
 mb stop
 ````
 
-Listing 4.9: JSONPath predicate
+## Listing 4.9: JSONPath predicate
 
 ````
 mb --configfile examples/jsonpath.json &
@@ -233,7 +232,7 @@ curl -i -X PUT http://localhost:3000/identities --data '{
 mb stop
 ````
 
-Listing 4.10: Simple XPath predicate
+## Listing 4.10: Simple XPath predicate
 
 ````
 mb --configfile examples/xpath.json &
@@ -263,7 +262,7 @@ curl -i -X PUT http://localhost:3000/identities --data '
 mb stop
 ````
 
-Listing 4.11: XPath with namespaces
+## Listing 4.11: XPath with namespaces
 
 ````
 mb --configfile examples/xpath-ns.json &
