@@ -17,11 +17,11 @@
       "protocol": "http",
       "stubs": [
         {
-          "predicates": [{ "equals": { "path": "/400-code-path" } }],
+          "predicates": [{ "contains": { "body": "5555555555555555" } }],
           "responses": [{ "is": { "statusCode": 400 } }]
         },
         {
-          "predicates": [{ "equals": { "path": "/500-code-path" } }],
+          "predicates": [{ "contains": { "body": "4444444444444444" } }],
           "responses": [{ "is": { "statusCode": 500 } }]
         },
         {

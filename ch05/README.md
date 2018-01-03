@@ -8,7 +8,7 @@ the proxy imposter second on port 3000.
 ## Listing 5.1 and 5.2: Setting up a basic proxy to query inventory
 
 ````
-mb --configfile examples/basic-inventory.json &
+mb restart --configfile examples/basic-inventory.json &
 
 # Should respond with 54
 curl -i http://localhost:3000/inventory/2599b7f4
@@ -28,7 +28,7 @@ mb stop
 ## Listing 5.3: Using a path predicate generator
 
 ````
-mb --configfile examples/path-predicate.json &
+mb restart --configfile examples/path-predicate.json &
 
 # Should respond with 54
 curl -i http://localhost:3000/inventory/2599b7f4
@@ -45,7 +45,7 @@ mb stop
 ## Example: Using a path and page query predicate generator
 
 ````
-mb --configfile examples/path-and-query-predicate.json &
+mb restart --configfile examples/path-and-query-predicate.json &
 
 # Should respond with "page 1"
 curl -i http://localhost:3000/inventory/2599b7f4?page=1
@@ -171,7 +171,7 @@ mb stop
 ## Listing 5.8-5.9: Using a proxyAlways proxy mode
 
 ````
-mb --configfile examples/proxyAlways.json &
+mb restart --configfile examples/proxyAlways.json &
 
 # Should respond with 54
 curl -i http://localhost:3000/inventory/2599b7f4
@@ -194,7 +194,7 @@ mb stop
 ## Listing 5.10: Simple replay
 
 ````
-mb --configfile examples/proxyAlways.json &
+mb restart --configfile examples/proxyAlways.json &
 
 # Should respond with 54
 curl -i http://localhost:3000/inventory/2599b7f4
@@ -219,19 +219,19 @@ mb stop
 
 ## Listing 5.15: Using a partial proxy
 ````
-mb --configfile examples/partialProxy.json &
+mb restart --configfile examples/partialProxy.json &
 
 # Should respond with 400 error code
-curl -i http://localhost:3000/400-code-path
+curl -i -d'cc=5555555555555555' http://localhost:3000/400-code-path
 
 # Should repond with a 500 error code
-curl -i http://localhost:3000/500-code-path
+curl -i -d'cc=4444444444444444' http://localhost:3000/500-code-path
 
 # Should respond proxied message
-curl -i http://localhost:3000/something-else
+curl -i -d'cc=3333333333333333' http://localhost:3000/something-else
 
 # Should respond with another proxied message
-curl -i http://localhost:3000/something-else
+curl -i -d'cc=2222222222222222' http://localhost:3000/something-else
 
 # In this scenario, you'd never use mb replay
 
@@ -241,7 +241,7 @@ mb stop
 ## Listing 5.16: Bridging HTTPS to HTTP
 
 ````
-mb --configfile examples/https-to-http.json &
+mb restart --configfile examples/https-to-http.json &
 
 # The HTTPS imposter uses a self-signed certificate
 # Calling the HTTP imposter doesn't require us to use
