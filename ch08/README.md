@@ -6,10 +6,10 @@ Netcat is like telnet, but easier to script.
 ## Listing 8.1-8.2: Virtualizing a TCP updateInventory call
 
 ````
-mb --configfile examples/updateInventory.json &
+mb restart --configfile examples/updateInventory.json &
 
 # Should respond with "0\n1343"
-echo "updateInventory\n5131\n-5" | nc localhost 3000
+echo "updateInventory\na32fbd\n-5" | nc localhost 3000
 
 mb stop
 ````
@@ -17,7 +17,7 @@ mb stop
 ## Listing 8.3: Using a TCP proxy
 
 ````
-mb --configfile examples/textProxy.json &
+mb restart --configfile examples/textProxy.json &
 
 # Should respond with "0\n1343"
 # Note the -q 1 flag, which unfortunately doesn't work on my Mac but does on Linux
@@ -39,7 +39,7 @@ mb stop
 ## Listing 8.4: Using a TCP proxy with predicate generators
 
 ````
-mb --configfile examples/proxyWithPredicateGenerators.json &
+mb restart --configfile examples/proxyWithPredicateGenerators.json &
 
 # Should respond with "0\n1343"
 echo "updateInventory\n5131\n-5" | nc -q 1 localhost 3000
@@ -62,7 +62,7 @@ mb stop
 ## Listing 8.5: Using a TCP proxy with predicate generators with an XML payload
 
 ````
-mb --configfile examples/proxyWithPredicateGeneratorsXML.json &
+mb restart --configfile examples/proxyWithPredicateGeneratorsXML.json &
 
 # Write first test data
 cat <<EOF > mbtemp
@@ -129,7 +129,7 @@ mb stop
 ## Listing 8.9: Using a Base64-encoded contains predicate
 
 ````
-mb --configfile examples/binaryContains.json &
+mb restart --configfile examples/binaryContains.json &
 
 # Should return 'Did not match' since it doesn't contain 0x49 0x11
 node -e 'console.log(new Buffer([0x10, 0x49, 0x10]).toString("base64"));' | base64 --decode | nc localhost 3000
@@ -156,7 +156,9 @@ file and selecting 'Run unit tests'
 
 ## Listing 8.14-8.16: Proxying to a .NET remoting server
 
-This works on Windows. All three comamnds should be run in separate consoles.
+This works on Windows. All three comamnds should be run in separate consoles. Note that, to generate a large
+enough payload to require the `endOfRequestResolver`, I generated a bunch of random text, so don't be
+surprised if a successful response looks weird.
 
 ````
 src\TownCrier-DotNetRemoting\artifacts\Server.exe 3333
