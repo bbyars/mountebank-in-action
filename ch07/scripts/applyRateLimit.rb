@@ -8,7 +8,7 @@ if File.exists?('rate-limit.txt')
   current_value = File.read('rate-limit.txt').to_i
 end
 
-if current_value == 0
+if current_value <= 0
   response['statusCode'] = 429
   response['body'] = {
     'errors' => [{

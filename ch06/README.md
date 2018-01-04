@@ -10,7 +10,7 @@ JSON-escape it.
 ## Listing 6.3-6.5: Testing the Roadie service predicate
 
 ````
-mb --allowInjection --localOnly --configfile examples/roadie-predicate.json &
+mb restart --allowInjection --localOnly --configfile examples/roadie-predicate.json &
 
 # More than 10 degrees over (2nd row)
 # Should respond with "Humidity levels dangerous, action required"
@@ -60,7 +60,7 @@ mb stop
 
 ````
 # No predicates in imposter, all logic performed in response
-mb --allowInjection --localOnly --configfile examples/roadie-response.json &
+mb restart --allowInjection --localOnly --configfile examples/roadie-response.json &
 
 # More than 10 degrees over (2nd row)
 # Should respond with "Humidity levels dangerous, action required"
@@ -110,7 +110,7 @@ mb stop
 
 ````
 # No predicates in imposter, all logic performed in response
-mb --allowInjection --localOnly --configfile examples/roadie-state.json &
+mb restart --allowInjection --localOnly --configfile examples/roadie-state.json &
 
 # Should respond with "Humidity levels OK"
 # But note that Jun-11 is over 60%
@@ -133,6 +133,9 @@ mb stop
 
 ````
 #!/usr/bin/env bash
+
+# Install dependencies
+npm install
 
 # Point app to mountebank instead of github
 export MBSTAR_BASE_AUTH_URL=http://localhost:3001

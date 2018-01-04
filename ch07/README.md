@@ -120,6 +120,9 @@ mb --configfile examples/copy-regex.json &
 # Returns 8731 in the response body
 curl -i http://localhost:3000/accounts/8731
 
+# Returns 8888 in the response body
+curl -i http://localhost:3000/accounts/8888
+
 mb stop
 ````
 

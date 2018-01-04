@@ -48,9 +48,10 @@ function (request) {
     }),
     hasDayTenPercentOutOfRange = humidities.some(function (humidity) {
       return humidity >= 70;
-    });
+    }),
+    isTooHumid = hasDayTenPercentOutOfRange || hasThreeDaysOutOfRange(humidities);
 
-  if (hasDayTenPercentOutOfRange || hasThreeDaysOutOfRange(humidities)) {
+  if (isTooHumid) {
     return {
       statusCode: 400,
       body: 'Humidity levels dangerous, action required'

@@ -7,7 +7,7 @@ function (request, response) {
       currentValue = parseInt(fs.readFileSync('rate-limit.txt'));
   }
 
-  if (currentValue === 0) {
+  if (currentValue <= 0) {
     response.statusCode = 429;
     response.body = {
       errors: [{ code: 88, message: 'Rate limit exceeded' }]
