@@ -14,7 +14,9 @@ module.exports = function (grunt) {
       },
       service: {
         options: {
-          reporter: 'spec'
+          reporter: 'spec',
+          path: 'node_modules/mountebank/bin/mb',
+          pathEnvironmentVariable: 'MB_EXECUTABLE'
         },
         src: ['serviceTest/**/*.js']
       },
