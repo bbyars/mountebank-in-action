@@ -45,7 +45,7 @@ curl http://localhost:5000/animals/10677691
 curl http://localhost:5000/animals/10837552
 curl http://localhost:5000/animals/11618347
 
-mb save --removeProxies
+mb save --removeProxies --savefile mb.json
 mb stop
 ````
 
@@ -74,7 +74,7 @@ curl http://localhost:5000/animals/10677691
 curl http://localhost:5000/animals/10837552
 curl http://localhost:5000/animals/11618347
 
-mb save --removeProxies
+mb save --removeProxies --savefile mb.json
 mb stop
 ````
 
