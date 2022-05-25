@@ -18,7 +18,7 @@
     "request-promise-any": "^1.0.3"
   },
   "devDependencies": {
-    "grunt": "^1.0.1",
+    "grunt": "^1.5.3",
     "grunt-cli": "^1.2.0",
     "grunt-mocha-test": "~0.13.2",
     "grunt-mountebank": "1.0.5",
