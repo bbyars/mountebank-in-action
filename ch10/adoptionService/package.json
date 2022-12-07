@@ -8,7 +8,7 @@
     "start": "node src/index.js"
   },
   "dependencies": {
-    "express": "~4.15.3",
+    "express": "~4.17.3",
     "q": "~1.5.0",
     "request-json": "^0.6.2"
   }
